@@ -137,4 +137,11 @@ La aplicación necesita funciones de servidor (Supabase SSR y `/api/extract`), a
 4. Ejecuta `npm run deploy` para publicar en Workers. El nombre inicial del Worker es `cazapisos`, configurable en `wrangler.jsonc`.
 5. En Supabase > Authentication > URL Configuration, agrega la URL publicada a **Site URL** y agrega `https://TU-DOMINIO/auth/callback` a **Redirect URLs**. Si utilizas el dominio `workers.dev`, añade también `https://cazapisos.TU-SUBDOMINIO.workers.dev/auth/callback`.
 
-Para despliegues automáticos, conecta el repositorio en Cloudflare Workers Builds y configura las mismas variables y secretos en los ajustes de build del proyecto. Usa `npm run deploy` como comando para generar y publicar el Worker.
+Para despliegues automáticos, conecta el repositorio en Cloudflare Workers Builds y configura:
+
+- **Build command:** `npm run cf-build`
+- **Deploy command:** `npx wrangler deploy`
+
+Configura `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` tanto en **Build variables and secrets** como en las variables de runtime del Worker. `SCRAPINGBEE_API_KEY` también debe estar disponible durante el build y en runtime si la usas.
+
+Para publicar manualmente desde tu equipo, inicia sesión con `npx wrangler login` y ejecuta `npm run deploy`.
